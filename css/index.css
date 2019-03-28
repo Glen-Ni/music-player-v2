@@ -1,0 +1,216 @@
+body {
+  overflow: hidden;
+}
+
+.layout {
+  margin: 0 auto;
+  width: 600px;
+}
+
+@media (min-width: 700px) {
+  .layout {
+    width: 600px;
+  }
+}
+@media (min-width: 900px) {
+  .layout {
+    width: 800px;
+  }
+}
+@media (min-width: 1000px) {
+  .layout {
+    width: 900px;
+  }
+}
+@media (min-width: 1200px) {
+  .layout {
+    width: 1100px;
+  }
+}
+
+.bg {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-big)
+    center / cover no-repeat;
+  filter: blur(4px);
+  z-index: -1;
+}
+.bg::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+main {
+  display: flex;
+  padding-top: 12vh;
+  height: 76vh;
+}
+
+main .aside figure {
+  width: 46vh;
+  height: 46vh;
+  background-image: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-big);
+  background-size: cover;
+  background-position: center center;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+main .aside .control {
+  display: flex;
+  margin-top: 4vh;
+}
+main .aside span {
+  flex: 1;
+  text-align: center;
+  font-size: 5vh;
+  color: rgba(255, 255, 255, 0.24);
+  transition: color 0.4s;
+  cursor: pointer;
+}
+main .aside span:hover {
+  color: #fff;
+}
+main .detail {
+  flex: 1;
+  padding-left: 8vh;
+  color: #fff;
+}
+main .detail .genre {
+  display: inline-block;
+  font-size: 2vh;
+  /* padding: 0.5vh 1vh; */
+  padding: 0.4em 0.8em;
+  background-color: #2c72f1;
+}
+main .detail h2 {
+  padding-top: 3vh;
+  font-size: 6vh;
+}
+main .detail .info {
+  display: flex;
+  padding-top: 13vh;
+  font-size: 2.5vh;
+  text-align: left;
+}
+main .detail span {
+  flex: 1;
+}
+main .detail .fa {
+  padding-right: 1vh;
+}
+main .progress {
+  display: flex;
+  margin-top: 8vh;
+  height: 3vh;
+  width: 100%;
+}
+main .progress .bar {
+  position: relative;
+  flex: 1;
+  top: 1vh;
+  height: 1vh;
+  width: 90%;
+  cursor: pointer;
+}
+main .progress .bar-total {
+  position: absolute;
+  height: 1vh;
+  width: 100%;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+main .progress .bar-now {
+  position: absolute;
+  height: 1vh;
+  width: 20%;
+  border-radius: 2px;
+  background-color: #fff;
+}
+main .progress .time-now {
+  margin-left: 1vh;
+  width: 5vh;
+  font-size: 2vh;
+  text-align: right;
+}
+main .detail .singer {
+  margin-top: 2vh;
+  font-size: 2.5vh;
+}
+main .detail .ablum {
+  margin-top: 2vh;
+  font-size: 2vh;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* footer */
+footer {
+  height: 24vh;
+  /* width: 100%; */
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px -0.25vh 0.25vh 0.25vh rgba(255, 255, 255, 0.2);
+}
+footer .layout {
+  position: relative;
+}
+footer .fa {
+  position: absolute;
+  top: 8vh;
+  font-size: 7vh;
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+footer:hover .fa {
+  opacity: 1;
+}
+footer .fa:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+footer .fa-angle-left {
+  left: -8vh;
+}
+footer .fa-angle-right {
+  right: -8vh;
+}
+footer .play-list {
+  position: relative;
+  overflow: hidden;
+  height: 24vh;
+}
+footer ul {
+}
+footer li {
+  float: left;
+  margin-top: 1vh;
+  margin: 2vh 2vh 0 2vh;
+  width: 20vh;
+  height: 20vh;
+  text-align: center;
+  cursor: pointer;
+}
+footer li:hover {
+  box-shadow: 0 .5vh .25vh 0 rgba(0, 0, 0, 0.3), 0 .25vh .5vh .5vh rgba(0, 0, 0, 0.3);
+}
+footer li .cover {
+  height: 16vh;
+  background-size: cover;
+  background-position: center center;
+}
+footer h3{
+  font-size: 2vh;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1vh;
+}
+footer li.active {
+  box-shadow: 0 0 .5vh .5vh rgba(255,255,255,0.8);
+
+}
