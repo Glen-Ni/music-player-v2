@@ -175,11 +175,16 @@ var Fm = {
     this.$container = $('main.layout')
     this.$playBtn = this.$container.find('.btn-play')
     this.$nextBtn = this.$container.find('.btn-next')
+    this.channel = {
+      channelId: 'public_tuijian_spring',
+      channelName: '漫步春天'
+    }
     this.audio = new Audio()
     this.audio.autoplay = true
     this.bind()
+    this.loadMusic(this.setMusic)
   },
-  bind: function () {
+  bind: function() {
     var _this = this
     EventCenter.on(
       'select-channel',
@@ -203,17 +208,23 @@ var Fm = {
         this.audio.pause()
       }.bind(this)
     )
-    this.$nextBtn.on('click', function () {
-      this.loadMusic(this.setMusic)
-    }.bind(this))
+    this.$nextBtn.on(
+      'click',
+      function() {
+        this.loadMusic(this.setMusic)
+      }.bind(this)
+    )
 
     // 进度条
-    $('.progress .bar').on('click', function(e) {
-      console.log(e.offsetX)
-      var percent = e.offsetX / parseInt($('.progress .bar').width())
-      this.audio.currentTime = this.audio.duration * percent
-      this.updateStatus() 
-    }.bind(this))
+    $('.progress .bar').on(
+      'click',
+      function(e) {
+        console.log(e.offsetX)
+        var percent = e.offsetX / parseInt($('.progress .bar').width())
+        this.audio.currentTime = this.audio.duration * percent
+        this.updateStatus()
+      }.bind(this)
+    )
 
     //audio相关绑定
     this.audio.onplay = function() {
