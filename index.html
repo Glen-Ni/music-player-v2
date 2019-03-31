@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Music Radio</title>
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link
@@ -13,18 +14,19 @@
     />
   </head>
   <body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <section>
       <main class="layout">
         <div class="aside">
           <figure></figure>
           <div class="control">
-            <span class="fa fa-heart"></span>
-            <span class="fa fa-play"></span>
-            <span class="fa fa-step-forward"></span>
+            <span class="btn-heart fa fa-heart"></span>
+            <span class="btn-play fa fa-play"></span>
+            <span class="btn-next fa fa-step-forward"></span>
           </div>
         </div>
         <div class="detail">
-          <div class="genre">
+          <div class="channel">
             <span>杀马特</span>
           </div>
           <h2>出殡</h2>
@@ -38,7 +40,7 @@
               <div class="bar-total"></div>
               <div class="bar-now"></div>
             </div>
-            <div class="time-now">1:11</div>
+            <div class="time-now">0:00</div>
           </div>
 
           <div class="singer">凉凉花粥</div>
@@ -49,36 +51,16 @@
         <div class="layout">
           <span class="fa fa-angle-left"></span>
           <span class="fa fa-angle-right"></span>
-          <div class="play-list">
+          <div class="channels">
             <ul class="clearfix">
-              <li>
+              <!-- <li>
                 <div
                   class="cover"
                   style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small)"
                 ></div>
                 <h3>漫步春天</h3>
-              </li>
-              <li>
-                <div
-                  class="cover"
-                  style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small)"
-                ></div>
-                <h3>漫步春天</h3>
-              </li>
-              <li>
-                <div
-                  class="cover"
-                  style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small)"
-                ></div>
-                <h3>漫步春天</h3>
-              </li>
-              <li>
-                <div
-                  class="cover"
-                  style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small)"
-                ></div>
-                <h3>漫步春天</h3>
-              </li>
+              </li> -->
+
             </ul>
           </div>
         </div>
