@@ -153,12 +153,12 @@ var Footer = {
       `
     })
     $('footer .layout ul').append(html)
-
     this.setStyle()
     this.bind()
   },
   setStyle: function() {
     this.$channels = $('footer').find('li')
+    this.$channels.eq(0).addClass('active')
     this.channelWidth = this.$channels.outerWidth(true)
     var count = this.$channels.length
     this.$container.css('width', count * this.channelWidth)
@@ -175,6 +175,7 @@ var Fm = {
     this.$container = $('main.layout')
     this.$playBtn = this.$container.find('.btn-play')
     this.$nextBtn = this.$container.find('.btn-next')
+    this.$heartBtn = this.$container.find('.btn-heart')
     this.channel = {
       channelId: 'public_tuijian_spring',
       channelName: '漫步春天'
@@ -200,7 +201,6 @@ var Fm = {
     this.$playBtn.on(
       'click',
       function() {
-        console.log('clicked')
         if (this.audio.paused == true) {
           this.audio.play()
           return
@@ -214,12 +214,19 @@ var Fm = {
         this.loadMusic(this.setMusic)
       }.bind(this)
     )
-
+    this.$heartBtn.on(
+      'click',function () {
+        $(this).toggleClass('active')
+      }
+    )
     // 进度条
     $('.progress .bar').on(
       'click',
       function(e) {
-        console.log(e.offsetX)
+        // console.log(e.offsetX)
+        if (this.audio.paused === true) {
+          this.audio.play()
+        }
         var percent = e.offsetX / parseInt($('.progress .bar').width())
         this.audio.currentTime = this.audio.duration * percent
         this.updateStatus()
@@ -246,6 +253,9 @@ var Fm = {
     //     (this.currentTime / this.duration) * 100 + '%'
     //   )
     // }
+    this.audio.onended = function() {
+      this.loadMusic(this.setMusic)
+    }.bind(this)
   },
   loadMusic(callback) {
     var _this = this
@@ -259,8 +269,30 @@ var Fm = {
       callback.bind(_this)()
     })
   },
-  setMusic() {
+  loadLyrics() {
     var _this = this
+    // console.log('loading')
+    $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {
+      sid: this.song.sid
+    }).done(function(ret) {
+      // console.log(ret)
+      var lyrics = ret.lyric
+      window.lyrics = lyrics
+      var lyricsObj = {}
+      lyrics.split('\n').forEach(function(line) {
+        var times = line.match(/\d{2}:\d{2}/g)
+        var str = line.replace(/\[.+?]/g, '')
+        if (Array.isArray(times)) {
+          times.forEach(function(time) {
+            lyricsObj[time] = str
+          })
+        }
+      })
+      _this.lyricsObj = lyricsObj
+      console.log(_this.lyricsObj)
+    })
+  },
+  setMusic() {
     this.audio.src = this.song.url
     $('.bg').css('background-image', `url(${this.song.picture})`)
     // console.log(this.$container.find('figure'))
@@ -270,13 +302,23 @@ var Fm = {
     this.$container.find('h2').text(this.song.title)
     this.$container.find('.singer').text(this.song.artist)
     this.$container.find('.channel span').text(this.channel.channelName)
+    this.loadLyrics()
   },
   updateStatus() {
-    $('.progress .time-now').text(this.formatTime(this.audio.currentTime))
+    var formatedTime = this.formatTime(this.audio.currentTime)
+    $('.progress .time-now').text(formatedTime)
     $('.progress .bar-now').css(
       'width',
       (this.audio.currentTime / this.audio.duration) * 100 + '%'
     )
+    // 歌词功能和特效
+    if (this.lyricsObj[formatedTime] && formatedTime != '00:00') {
+      // console.log(this.lyricsObj[formatedTime])
+      this.$container
+        .find('.lyrics')
+        .text(this.lyricsObj[formatedTime])
+        .animateText()
+    }
   },
   formatTime(time) {
     return (
@@ -290,6 +332,31 @@ var Fm = {
     )
   }
 }
+
+// jq动画插件
+$.fn.animateText = function(type) {
+  type = type || 'rollIn'
+  this.html(function() {
+    var arr = $(this)
+      .text()
+      .split('')
+      .map(function(word) {
+        return `<span  style="opacity:0;display:inline-block">${word}</span>`
+      })
+    return arr.join('')
+  })
+
+  var index = 0
+  var $texts = $(this).find('span')
+  var clock = setInterval(function() {
+    $texts.eq(index).addClass('animated ' + type)
+    index++
+    if (index >= $texts.length) {
+      clearInterval(clock)
+    }
+  }, 200)
+}
+$('p').animateText()
 
 Footer.init()
 Fm.init()
