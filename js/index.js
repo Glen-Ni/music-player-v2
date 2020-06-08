@@ -127,7 +127,7 @@ var Footer = {
   },
   getData: function() {
     var _this = this
-    $.getJSON('//jirenguapi.applinzi.com/fm/getChannels.php')
+    $.getJSON('//jirenguapi.applinzi.com/fm/v2/getChannels.php')
       .done(function(ret) {
         console.log(ret)
         _this.render(ret.channels)
@@ -177,8 +177,8 @@ var Fm = {
     this.$nextBtn = this.$container.find('.btn-next')
     this.$heartBtn = this.$container.find('.btn-heart')
     this.channel = {
-      channelId: 'public_tuijian_spring',
-      channelName: '漫步春天'
+      channelId: 'public_shiguang_80hou',
+      channelName: '80后'
     }
     this.audio = new Audio()
     this.audio.autoplay = true
@@ -260,7 +260,7 @@ var Fm = {
   loadMusic(callback) {
     var _this = this
     // console.log('loading')
-    $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php', {
+    $.getJSON('//jirenguapi.applinzi.com/fm/v2/getSong.php', {
       channel: this.channel.channelId
     }).done(function(ret) {
       _this.song = ret.song[0]
@@ -272,7 +272,7 @@ var Fm = {
   loadLyrics() {
     var _this = this
     // console.log('loading')
-    $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {
+    $.getJSON('//jirenguapi.applinzi.com/fm/v2/getLyric.php', {
       sid: this.song.sid
     }).done(function(ret) {
       // console.log(ret)
